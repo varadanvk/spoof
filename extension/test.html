@@ -1,0 +1,15 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Geo test</title>
+<button id="go">Get location</button>
+<pre id="out"></pre>
+<script>
+  go.onclick = async () => {
+    const perm = await navigator.permissions.query({ name: "geolocation" });
+    navigator.geolocation.getCurrentPosition(
+      (p) => out.textContent = `permission: ${perm.state}\n` + JSON.stringify(p, null, 2) +
+        `\ninstanceof GeolocationPosition: ${p instanceof GeolocationPosition}`,
+      (e) => out.textContent = "error: " + e.message
+    );
+  };
+</script>

@@ -1,0 +1,147 @@
+:root {
+  --bg: #ffffff;
+  --surface: #f4f5f7;
+  --border: #e2e4e8;
+  --text: #16181d;
+  --muted: #6b7280;
+  --accent: #5b5bf6;
+  --accent-text: #ffffff;
+  --accent-soft: rgba(91, 91, 246, 0.14);
+  --ok: #10a36e;
+  --off: #9ca3af;
+  --danger: #dc4b4b;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17181c;
+    --surface: #212328;
+    --border: #2e3138;
+    --text: #eceef2;
+    --muted: #9097a3;
+    --accent: #8484ff;
+    --accent-text: #0f0f1a;
+    --accent-soft: rgba(132, 132, 255, 0.18);
+    --ok: #34d399;
+    --danger: #f07171;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  width: 340px;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+
+header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px 10px;
+}
+.brand { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; }
+.brand svg { color: var(--accent); }
+
+.switch input { display: none; }
+.switch .track {
+  display: block; width: 36px; height: 20px; border-radius: 10px;
+  background: var(--border); position: relative; transition: background .15s; cursor: pointer;
+}
+.switch .thumb {
+  position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%;
+  background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.25); transition: transform .15s;
+}
+.switch input:checked + .track { background: var(--accent); }
+.switch input:checked + .track .thumb { transform: translateX(16px); }
+
+.statusbar {
+  margin: 0 16px 10px; font-size: 12px; color: var(--muted);
+  display: flex; align-items: center; gap: 6px; min-height: 18px;
+}
+.statusbar .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--off); flex: none; }
+.statusbar.on .dot { background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 25%, transparent); }
+.statusbar strong { color: var(--text); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.map {
+  position: relative; height: 190px; margin: 0 16px; border-radius: 12px; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border); cursor: crosshair;
+}
+#tiles img { position: absolute; width: 256px; height: 256px; user-select: none; pointer-events: none; }
+.radius {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  background: var(--accent-soft); border: 1.5px solid var(--accent);
+  transform: translate(-50%, -50%); left: 50%; top: 50%;
+}
+.pin {
+  position: absolute; left: 50%; top: 50%; width: 30px; height: 30px;
+  transform: translate(-50%, -92%); pointer-events: none;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.35));
+}
+.pin path { fill: var(--accent); stroke: #fff; stroke-width: 1.5; }
+.pin circle { fill: #fff; }
+.map.disabled .pin path { fill: var(--off); }
+.map.disabled .radius { border-color: var(--off); background: rgba(156,163,175,.15); }
+.zoom {
+  position: absolute; right: 8px; top: 8px; display: flex; flex-direction: column;
+  border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.2);
+}
+.zoom button {
+  width: 26px; height: 26px; border: 0; background: var(--bg); font-size: 15px; line-height: 1;
+}
+.zoom button + button { border-top: 1px solid var(--border); }
+.zoom button:hover { background: var(--surface); }
+.attrib {
+  position: absolute; right: 0; bottom: 0; font-size: 9px; padding: 1px 5px;
+  background: rgba(255,255,255,.75); color: #444; border-top-left-radius: 6px; pointer-events: none;
+}
+
+section { padding: 14px 16px 0; }
+section:last-of-type { padding-bottom: 16px; }
+.label { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 6px; }
+.label-row { display: flex; align-items: baseline; justify-content: space-between; }
+.field {
+  width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--text); font: inherit; outline: none;
+  transition: border-color .12s, box-shadow .12s;
+}
+.field:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.field.invalid { border-color: var(--danger); box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 18%, transparent); }
+.mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12.5px; }
+.hint { font-size: 11px; color: var(--muted); margin-top: 5px; }
+.hint.error { color: var(--danger); }
+
+.row { display: flex; align-items: flex-end; gap: 10px; margin-top: 12px; }
+.grow { width: 96px; flex: none; }
+.suffix { position: relative; }
+.suffix span { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.suffix input { padding-right: 24px; }
+.suffix input::-webkit-inner-spin-button { display: none; }
+
+.primary {
+  flex: 1; border: 0; border-radius: 8px; padding: 9px 12px;
+  background: var(--accent); color: var(--accent-text); font-weight: 600;
+  transition: filter .12s, transform .05s;
+}
+.primary:hover { filter: brightness(1.08); }
+.primary:active { transform: translateY(1px); }
+.primary.small { flex: none; padding: 7px 12px; }
+.primary.done { background: var(--ok); }
+.link { border: 0; background: none; color: var(--accent); font-size: 12px; font-weight: 600; padding: 0; }
+
+.place-form { display: flex; gap: 8px; margin-bottom: 8px; }
+.places { display: flex; flex-direction: column; gap: 4px; }
+.place {
+  display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 8px;
+  border: 1px solid transparent; background: var(--surface); cursor: pointer; text-align: left; width: 100%;
+}
+.place:hover { border-color: var(--border); }
+.place.active { border-color: var(--accent); background: var(--accent-soft); }
+.place .meta { flex: 1; min-width: 0; }
+.place .name { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.place .ll { font-size: 11px; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+.place .del {
+  opacity: 0; border: 0; background: none; color: var(--muted); font-size: 16px; line-height: 1; padding: 2px 4px; border-radius: 4px;
+}
+.place:hover .del { opacity: 1; }
+.place .del:hover { color: var(--danger); }
+.empty { font-size: 12px; color: var(--muted); }

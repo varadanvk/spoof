@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+      <span>Geo Spoof</span>
+    </div>
+    <label class="switch" title="Toggle spoofing">
+      <input type="checkbox" id="enabled">
+      <span class="track"><span class="thumb"></span></span>
+    </label>
+  </header>
+
+  <div id="statusbar" class="statusbar"></div>
+
+  <div id="map" class="map" title="Click to move the pin">
+    <div id="tiles"></div>
+    <div id="radius" class="radius"></div>
+    <svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.6"/></svg>
+    <div class="zoom">
+      <button id="zoomIn" aria-label="Zoom in">+</button>
+      <button id="zoomOut" aria-label="Zoom out">−</button>
+    </div>
+    <div class="attrib">© OpenStreetMap © CARTO</div>
+  </div>
+
+  <section>
+    <label for="coords" class="label">Coordinates</label>
+    <input id="coords" class="field mono" spellcheck="false" autocomplete="off" placeholder="38.537069, -121.751826">
+    <div id="hint" class="hint">Paste coordinates, a Google Maps link, or 38°32'13"N 121°45'07"W</div>
+
+    <div class="row">
+      <div class="grow">
+        <label for="accuracy" class="label">Accuracy</label>
+        <div class="suffix"><input id="accuracy" class="field" type="number" min="1" step="1"><span>m</span></div>
+      </div>
+      <button id="apply" class="primary">Apply &amp; reload tab</button>
+    </div>
+  </section>
+
+  <section>
+    <div class="label-row">
+      <span class="label">Saved places</span>
+      <button id="addPlace" class="link">+ Save current</button>
+    </div>
+    <form id="placeForm" class="place-form" hidden>
+      <input id="placeName" class="field" placeholder="Name this place" maxlength="40">
+      <button class="primary small">Save</button>
+    </form>
+    <div id="places" class="places"></div>
+  </section>
+
+  <script src="popup.js"></script>
+</body>
+</html>
